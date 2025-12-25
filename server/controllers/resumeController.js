@@ -8,6 +8,7 @@ const { generateSuggestions } = require('../utils/openai');
 // @route   POST /resume/upload
 // @access  Private
 const uploadResume = asyncHandler(async (req, res) => {
+    
     console.log('Upload request received');
     if (!req.file) {
         console.log('No file received');

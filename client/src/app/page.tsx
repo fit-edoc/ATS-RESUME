@@ -73,7 +73,9 @@ const companies = [
           <div className="mt-24 pt-10 border-t border-slate-800/50">
             <p className="text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">Trusted by candidates who got into</p>
             <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+
               {/* Placeholder Logos */}
+
               {companies.map((company) => (
                 <div key={company.title} className="text-xl font-bold text-white flex items-center gap-2">
                   <img src={company.image} className='h-[20px]' alt={company.title} />
@@ -100,7 +102,7 @@ const companies = [
               { title: 'AI Suggestions', desc: 'Receive smart rewrite suggestions to improve impact and clarity.', icon: <Upload className="text-white" size={32} /> },
             ].map((feature, i) => (
               <div key={i} className="group relative bg-[#0A0A0A] rounded-2xl p-8 border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col min-h-[300px] justify-between overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative z-10">
                   <div className="mb-6 p-3 bg-slate-900/50 w-fit rounded-xl border border-slate-800 group-hover:border-slate-600 transition-colors">
                     {feature.icon}
@@ -112,11 +114,12 @@ const companies = [
             ))}
           </div>
         </div>
+        
       </main>
 
-      <footer className="border-t border-slate-800 py-12 ">
+      {/* <footer className="border-t border-slate-800 py-12 ">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-8 mb-8 ">
+          <div className="flex justify-center gap-8 mb-8">
             <Link href="#" className="text-yellow-300">Docs</Link>
             <Link href="#" className="text-yellow-300">Company</Link>
             <Link href="#" className="text-yellow-300">Careers</Link>
@@ -124,7 +127,8 @@ const companies = [
           </div>
           <p className="text-slate-600">&copy; 2025 ResumeAI. All rights reserved.</p>
         </div>
-      </footer>
+      </footer> */}
+     
     </div>
   );
 }
