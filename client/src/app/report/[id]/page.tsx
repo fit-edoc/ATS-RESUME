@@ -7,9 +7,10 @@ import { toast } from 'react-hot-toast';
 import { ResponsiveContainer, RadialBarChart, RadialBar, Legend, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { Check, X, AlertTriangle, ArrowLeft, Copy, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 export default function ReportPage({ params }: { params: Promise<{ id: string }> }) {
-    const { id } = use(params);
+    const { id } = useParams<{ id: string }>();
     const [report, setReport] = useState<any>(null);
     const [resume, setResume] = useState<any>(null); // Ideally fetch resume details too for name
     const [loading, setLoading] = useState(true);
