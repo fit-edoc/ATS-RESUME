@@ -11,7 +11,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-    origin:"https://ats-resume-snowy.vercel.app/",
+    origin:"https://ats-resume-snowy.vercel.app",
     credentials:true,
     method:["GET","POST","PUT","DELETE"]
 }));
