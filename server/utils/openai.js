@@ -1,29 +1,27 @@
-const OpenAI = require('openai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const generateSuggestions = async (resumeText, role) => {
     try {
-        const response = await openai.chat.completions.create({
-            model: 'gpt-3.5-turbo',
-            messages: [
-                {
-                    role: 'system',
-                    content: 'You are an expert ATS (Applicant Tracking System) resume analyzer. Analyze the resume for the given role.',
-                },
-                {
-                    role: 'user',
-                    content: `Analyze this resume for the role of ${role}. match patterns and suggest improvements. \n\nResume Content:\n${resumeText.substring(0, 3000)}`, // Limit fit to context
-                },
-            ],
-            max_tokens: 500,
-        });
-        return response.choices[0].message.content;
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+        
+        const prompt = `You are an expert ATS (Applicant Tracking System) resume analyzer. Analyze the resume for the given role.
+        
+Analyze this resume for the role of ${role}. Match patterns and suggest improvements. 
+
+Resume Content:
+${resumeText.substring(0, 3000)}`;
+
+        const result = await model.generateContent(prompt);
+        const response = result.response;
+        return response.text();
     } catch (error) {
-        console.error('OpenAI Error:', error);
-        return 'Detailed suggestions unavailable at the moment.';
+        console.error('Gemini API Error:', error.message || error);
+        if (error.status === 429 || (error.message && error.message.toLowerCase().includes('quota'))) {
+            return 'Gemini API quota exceeded. Please check your billing details.';
+        }
+        return 'Detailed suggestions unavailable at the moment due to an API error.';
     }
 };
 

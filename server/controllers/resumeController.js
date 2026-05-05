@@ -96,6 +96,7 @@ const analyzeResume = asyncHandler(async (req, res) => {
     const sectionScore = (foundSections.length / sections.length) * 20;
 
     // 4. Experience (Simplistic length/content check)
+    
     const experienceScore = text.length > 500 ? 20 : 10;
 
     const totalScore = keywordScore + formattingScore + sectionScore + experienceScore;
