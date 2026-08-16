@@ -1,31 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020306;
-  --foreground: #ffffff;
+  --background: #FFFDF6;
+  --foreground: #1e293b;
 
-  --primary: #ffffff;
-  --primary-foreground: #000000;
+  --primary: #BBD5DA;
+  --primary-foreground: #0f172a;
 
-  --secondary: #1e293b;
-  --secondary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
 
-  --accent: #3b82f6;
-  --accent-foreground: #ffffff;
+  --accent: #BBD5DA;
+  --accent-foreground: #0f172a;
 
-  --muted: #334155;
-  --muted-foreground: #94a3b8;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
 
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
+  --card: #ffffff;
+  --card-foreground: #1e293b;
 
-  --border: #1f2937;
+  --border: #e2e8f0;
 }
 
-
-
 @theme inline {
-    --font-josefin: var(--font-josefin-sans);
+  --font-spacemono: var(--font-space-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -44,26 +42,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans, system-ui, sans-serif);
-}
-
-.bg-dot-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.248) 1px, transparent 1px);
-  background-size: 40px 40px;
-  mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-}
-
-.glass {
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-spacemono, system-ui, sans-serif);
 }
 
 

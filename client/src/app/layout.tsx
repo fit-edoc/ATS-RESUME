@@ -1,24 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono ,Josefin_Sans } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "react-hot-toast";
+import LenisProvider from "@/components/LenisProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const spaceMono = localFont({
+  src: "../../public/fonts/SpaceMono-Regular.ttf",
+  variable: "--font-space-mono",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const josefin = Josefin_Sans({
-  variable: "--font-josefin",
-  subsets: ["latin"],
-  weight: ["400"],
-});
 export const metadata: Metadata = {
   title: "ATS Resume Analyzer",
   description: "Optimize your resume for ATS algorithms and get hired faster.",
@@ -32,21 +23,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${josefin.variable} antialiased bg-slate-950 text-slate-100 min-h-screen`}
+        className={`${spaceMono.variable} antialiased bg-background text-foreground min-h-screen`}
       >
-        <AuthProvider>
-          {children}
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              style: {
-                background: '#1e293b',
-                color: '#f8fafc',
-                border: '1px solid #334155'
-              }
-            }}
-          />
-        </AuthProvider>
+        <LenisProvider>
+          <AuthProvider>
+            {children}
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                style: {
+                  background: 'var(--card)',
+                  color: 'var(--card-foreground)',
+                  border: '1px solid var(--border)'
+                }
+              }}
+            />
+          </AuthProvider>
+        </LenisProvider>
       </body>
     </html>
   );

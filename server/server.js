@@ -16,7 +16,7 @@ if (!fs.existsSync(uploadDir)) {
 const app = express();
 
 app.use(cors({
-    origin:"https://ats-resume-snowy.vercel.app",
+    origin:["https://ats-resume-snowy.vercel.app", "http://localhost:3000"],
     credentials:true,
     method:["GET","POST","PUT","DELETE"]
 }));

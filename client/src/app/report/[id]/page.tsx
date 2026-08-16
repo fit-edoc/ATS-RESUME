@@ -9,7 +9,7 @@ import { Check, X, AlertTriangle, ArrowLeft, Copy, RefreshCw } from 'lucide-reac
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
-export default function ReportPage({ params }: { params: Promise<{ id: string }> }) {
+export default function ReportPage() {
     const { id } = useParams<{ id: string }>();
     const [report, setReport] = useState<any>(null);
     const [resume, setResume] = useState<any>(null); // Ideally fetch resume details too for name
@@ -49,22 +49,15 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         }
     };
 
-    if (loading) return <div className="min-h-screen bg-slate-950 flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-indigo-500"></div></div>;
-    if (!report) return <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white">Report not found</div>;
-
-    const scoreData = [
-        { name: 'Keywords', value: report.keywordMatch, fill: '#8884d8' },
-        { name: 'Formatting', value: report.formattingScore, fill: '#83a6ed' },
-        { name: 'Sections', value: report.sectionScore, fill: '#8dd1e1' },
-        { name: 'Experience', value: report.experienceScore, fill: '#82ca9d' },
-    ];
+    if (loading) return <div className="min-h-screen bg-background flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div></div>;
+    if (!report) return <div className="min-h-screen bg-background flex items-center justify-center text-foreground">Report not found</div>;
 
     return (
-        <div className="min-h-screen bg-slate-950 pb-20">
+        <div className="min-h-screen bg-background pb-20 font-spacemono flex flex-col relative">
             <Navbar />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
-                <Link href="/dashboard" className="inline-flex items-center text-slate-400 hover:text-white mb-6">
+            <div className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 w-full">
+                <Link href="/dashboard" className="inline-flex items-center text-muted-foreground hover:text-foreground mb-6 transition-colors font-medium">
                     <ArrowLeft size={16} className="mr-2" /> Back to Dashboard
                 </Link>
 
@@ -72,42 +65,43 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                     {/* Main Score Card */}
                     <div className="lg:col-span-2 space-y-6">
                         {/* Overall Score */}
-                        <div className="glass p-8 rounded-2xl border border-slate-700 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="bg-card p-6 md:p-8 rounded-2xl border border-border shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
                             <div>
-                                <h1 className="text-3xl font-bold mb-2">ATS Score</h1>
-                                <p className="text-slate-400">Your resume's compatibility with ATS algorithms.</p>
+                                <h1 className="text-3xl font-bold mb-2 text-foreground">ATS Score</h1>
+                                <p className="text-muted-foreground">Your resume's compatibility with ATS algorithms.</p>
                             </div>
                             <div className="relative w-32 h-32 flex items-center justify-center">
-                                <svg className="w-full h-full" viewBox="0 0 36 36">
+                                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                                     <path
                                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                         fill="none"
-                                        stroke="#334155"
+                                        stroke="#e2e8f0"
                                         strokeWidth="3"
                                     />
                                     <path
                                         d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                         fill="none"
-                                        stroke={report.totalScore > 70 ? '#10b981' : report.totalScore > 50 ? '#eab308' : '#ef4444'}
+                                        stroke={report.totalScore > 70 ? '#10b981' : report.totalScore > 50 ? '#f59e0b' : '#ef4444'}
                                         strokeWidth="3"
                                         strokeDasharray={`${report.totalScore}, 100`}
-                                        className="animate-[spin_1s_ease-out_reverse]"
+                                        className="transition-all duration-1000 ease-out"
+                                        strokeLinecap="round"
                                     />
                                 </svg>
-                                <span className="absolute text-3xl font-bold">{report.totalScore}</span>
+                                <span className="absolute text-3xl font-bold text-foreground">{report.totalScore}</span>
                             </div>
                         </div>
 
                         {/* AI Suggestions */}
-                        <div className="glass p-6 rounded-2xl border border-slate-700">
-                            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 bg-indigo-500 rounded-full"></span> AI Improvement Suggestions
+                        <div className="bg-card p-6 md:p-8 rounded-2xl border border-border shadow-sm">
+                            <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-foreground">
+                                <span className="w-2.5 h-2.5 bg-primary rounded-full"></span> AI Improvement Suggestions
                             </h2>
-                            <div className="prose prose-invert max-w-none">
-                                <div className="bg-slate-900/50 p-4 rounded-lg border border-slate-800 text-slate-300">
+                            <div className="prose prose-slate max-w-none">
+                                <div className="bg-muted p-5 rounded-xl border border-border/50 text-foreground text-sm leading-relaxed">
                                     {report.suggestions ? (
                                         report.suggestions.split('\n').map((line: string, i: number) => (
-                                            <p key={i} className="mb-2">{line}</p>
+                                            <p key={i} className="mb-2 last:mb-0">{line}</p>
                                         ))
                                     ) : 'No specific AI suggestions available.'}
                                 </div>
@@ -116,36 +110,42 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
                         {/* Formatting & Missing Keywords */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="glass p-6 rounded-2xl border border-slate-700">
-                                <h3 className="font-semibold mb-4 text-red-400">Missing Keywords</h3>
-                                {report.missingKeywords.length > 0 ? (
+                            <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex flex-col">
+                                <h3 className="font-semibold mb-4 text-red-600 flex items-center gap-2">
+                                    <AlertTriangle size={18} /> Missing Keywords
+                                </h3>
+                                {report.missingKeywords && report.missingKeywords.length > 0 ? (
                                     <div className="flex flex-wrap gap-2">
                                         {report.missingKeywords.map((k: string) => (
-                                            <span key={k} className="px-2 py-1 bg-red-500/10 text-red-400 text-sm rounded border border-red-500/20">{k}</span>
+                                            <span key={k} className="px-2.5 py-1 bg-red-50 text-red-700 font-medium text-sm rounded-lg border border-red-200 shadow-sm">{k}</span>
                                         ))}
                                     </div>
                                 ) : (
-                                    <p className="text-emerald-400 flex items-center gap-2"><Check size={16} /> All target keywords found!</p>
+                                    <p className="text-emerald-600 flex items-center gap-2 font-medium bg-emerald-50 p-3 rounded-lg border border-emerald-200"><Check size={18} /> All target keywords found!</p>
                                 )}
                             </div>
 
-                            <div className="glass p-6 rounded-2xl border border-slate-700">
-                                <h3 className="font-semibold mb-4 text-indigo-400">Score Breakdown</h3>
-                                <div className="space-y-3">
-                                    <div className="flex justify-between text-sm">
-                                        <span>Keyword Match</span>
-                                        <span>{report.keywordMatch}%</span>
-                                    </div>
-                                    <div className="w-full bg-slate-800 rounded-full h-1.5">
-                                        <div className="bg-indigo-500 h-1.5 rounded-full" style={{ width: `${(report.keywordMatch / 40) * 100}%` }}></div>
+                            <div className="bg-card p-6 rounded-2xl border border-border shadow-sm flex flex-col">
+                                <h3 className="font-semibold mb-4 text-foreground">Score Breakdown</h3>
+                                <div className="space-y-4">
+                                    <div>
+                                        <div className="flex justify-between text-sm font-medium text-foreground mb-1">
+                                            <span>Keyword Match</span>
+                                            <span>{report.keywordMatch}%</span>
+                                        </div>
+                                        <div className="w-full bg-muted rounded-full h-2">
+                                            <div className="bg-primary h-2 rounded-full" style={{ width: `${(report.keywordMatch / 40) * 100}%` }}></div>
+                                        </div>
                                     </div>
 
-                                    <div className="flex justify-between text-sm">
-                                        <span>Formatting</span>
-                                        <span>{report.formattingScore}%</span>
-                                    </div>
-                                    <div className="w-full bg-slate-800 rounded-full h-1.5">
-                                        <div className="bg-purple-500 h-1.5 rounded-full" style={{ width: `${(report.formattingScore / 20) * 100}%` }}></div>
+                                    <div>
+                                        <div className="flex justify-between text-sm font-medium text-foreground mb-1">
+                                            <span>Formatting</span>
+                                            <span>{report.formattingScore}%</span>
+                                        </div>
+                                        <div className="w-full bg-muted rounded-full h-2">
+                                            <div className="bg-primary/80 h-2 rounded-full" style={{ width: `${(report.formattingScore / 20) * 100}%` }}></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -154,12 +154,12 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
                     {/* Sidebar: JD Match */}
                     <div className="space-y-6">
-                        <div className="glass p-6 rounded-2xl border border-slate-700">
-                            <h2 className="text-xl font-bold mb-4">Job Description Match</h2>
-                            <p className="text-sm text-slate-400 mb-4">Paste the job description below to see how well your resume matches a specific job.</p>
+                        <div className="bg-card p-6 rounded-2xl border border-border shadow-sm sticky top-28">
+                            <h2 className="text-xl font-bold mb-3 text-foreground">Job Description Match</h2>
+                            <p className="text-sm text-muted-foreground mb-5 leading-relaxed">Paste the job description below to see how well your resume matches a specific job role.</p>
 
                             <textarea
-                                className="w-full h-40 bg-slate-900 border border-slate-700 rounded-lg p-3 text-sm text-white focus:border-indigo-500 focus:outline-none mb-4"
+                                className="w-full h-40 bg-background border border-border rounded-xl p-4 text-sm text-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none mb-4 transition-all shadow-sm resize-none"
                                 placeholder="Paste Job Description..."
                                 value={jdText}
                                 onChange={(e) => setJdText(e.target.value)}
@@ -168,28 +168,30 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                             <button
                                 onClick={handleJdMatch}
                                 disabled={matchingJd}
-                                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-semibold py-2 rounded-lg transition-colors"
+                                className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 disabled:opacity-70 text-primary-foreground font-bold py-3 rounded-xl transition-all shadow-sm"
                             >
                                 {matchingJd ? (
-                                    <RefreshCw className="animate-spin w-4 h-4" />
+                                    <>
+                                        <RefreshCw className="animate-spin w-4 h-4" /> Analyzing...
+                                    </>
                                 ) : (
-                                    'Compare'
+                                    'Compare with JD'
                                 )}
                             </button>
 
                             {jdMatchResult && (
-                                <div className="mt-6 pt-6 border-t border-slate-700 animate-in fade-in slide-in-from-bottom-4">
-                                    <div className="text-center mb-4">
-                                        <div className="text-4xl font-bold text-white mb-1">{jdMatchResult.matchPercentage}%</div>
-                                        <div className="text-xs text-slate-400 uppercase tracking-widest">Match Score</div>
+                                <div className="mt-6 pt-6 border-t border-border animate-in fade-in slide-in-from-bottom-2 duration-500">
+                                    <div className="text-center mb-5">
+                                        <div className="text-5xl font-bold text-foreground mb-2">{jdMatchResult.matchPercentage}%</div>
+                                        <div className="text-xs text-muted-foreground uppercase tracking-wider font-bold">Match Score</div>
                                     </div>
 
                                     {jdMatchResult.missingKeywords?.length > 0 && (
                                         <div>
-                                            <p className="text-sm font-semibold text-red-400 mb-2">Missing Critical Keywords:</p>
+                                            <p className="text-sm font-bold text-red-600 mb-3">Missing Critical Keywords:</p>
                                             <div className="flex flex-wrap gap-2">
                                                 {jdMatchResult.missingKeywords.map((k: string) => (
-                                                    <span key={k} className="text-xs px-2 py-1 bg-red-900/20 text-red-300 rounded border border-red-900/40">{k}</span>
+                                                    <span key={k} className="text-xs px-2.5 py-1 bg-red-50 text-red-700 font-medium rounded-md border border-red-200">{k}</span>
                                                 ))}
                                             </div>
                                         </div>

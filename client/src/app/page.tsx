@@ -2,133 +2,79 @@
 
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
-import { ArrowRight, CheckCircle, FileText, Upload } from 'lucide-react';
+import { ArrowRight, CheckCircle, FileText, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function Home() {
-
-
-const companies = [
-  {
-    title: "Google",
-    image: "https://logo.svgcdn.com/logos/google.svg",
-  },
-  {
-    title: "Netflix",
-    image: "https://logo.svgcdn.com/logos/netflix.svg",
-  },
-  {
-    title: "Amazon",
-    image: "https://imgs.search.brave.com/we4J9Nce1CapScBva4Ygw_EXcYv5Jcson02x0CePSjs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly8xMDAw/bG9nb3MubmV0L3dw/LWNvbnRlbnQvdXBs/b2Fkcy8yMDE2LzEw/L0FtYXpvbi1Mb2dv/LTIwMDAtNTAweDI4/MS5wbmc",
-  },
-  {
-    title: "Meta",
-    image: "https://logo.svgcdn.com/logos/meta.svg",
-  },
-  {
-    title: "Apple",
-    image: "https://logo.svgcdn.com/logos/apple.svg",
-  },
-];
-
-
-
   return (
-    <div className="min-h-screen bg-background text-foreground bg-dot-pattern relative isolate">
-      {/* Gradient overlay for better text readability if needed, or subtle glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-500/10 via-background to-background pointer-events-none -z-10" />
-
+    <div className="min-h-screen bg-background text-foreground relative isolate font-spacemono">
       <Navbar />
 
       <main className="pt-32 pb-16">
         {/* Hero Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
-           
+            
 
-            <h1 className="text-5xl md:text-7xl font-medium tracking-tight text-white mb-6 max-w-4xl mx-auto leading-[1.1]">
-              Master the ATS. <br />
-              <span className="text-slate-400">Land Your Dream Job.</span>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-6 max-w-4xl mx-auto leading-[1.1]">
+              Beat the Algorithms. <br />
+              <span className="text-muted-foreground font-normal">Land Your Dream Job.</span>
             </h1>
 
-            <p className="mt-6 max-w-2xl mx-auto text-xl text-slate-400 leading-relaxed">
-              Stop getting rejected by robots. Our AI-powered resume analyzer helps you optimize your resume for Applicant Tracking Systems in seconds.
+            <p className="mt-6 max-w-2xl mx-auto text-xl text-muted-foreground leading-relaxed">
+              Our AI-powered tool simulates Applicant Tracking Systems to optimize your resume, ensuring you pass the bots and impress human recruiters.
             </p>
 
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-              <Link href="/register" className="inline-flex h-12 items-center justify-center rounded-full border-t-2 border-b-2 border-white px-8 text-sm font-semibold text-white transition-colors hover:bg-slate-200 hover:text-black focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
-                Analyze My Resume
+              <Link href="/auth?mode=register" className="inline-flex h-14 items-center justify-center rounded-xl bg-primary px-8 text-base font-bold text-primary-foreground transition-all hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 shadow-sm group">
+                Analyze My Resume <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link href="/login" className="inline-flex h-12 items-center justify-center rounded-full   border-slate-700 border-t-2 border-b-2 bg-transparent px-8 text-sm font-semibold text-white transition-colors hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+              <Link href="/auth?mode=login" className="inline-flex h-14 items-center justify-center rounded-xl border-2 border-border bg-card px-8 text-base font-bold text-foreground transition-all hover:bg-muted hover:border-muted-foreground/30 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 shadow-sm">
                 Sign in
               </Link>
             </div>
           </motion.div>
+        </div>
 
-          {/* Social Proof / Logos */}
-          <div className="mt-24 pt-10 border-t border-slate-800/50">
-            <p className="text-sm text-slate-500 font-medium mb-8 uppercase tracking-wider">Trusted by candidates who got into</p>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+        {/* How It Works Section */}
+        <div className="py-24 bg-muted/30 border-y border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground tracking-tight">How It Works</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+                Three simple steps to significantly increase your interview callback rate.
+              </p>
+            </div>
 
-              {/* Placeholder Logos */}
-
-              {companies.map((company) => (
-                <div key={company.title} className="text-xl font-bold text-white flex items-center gap-2">
-                  <img src={company.image} className='h-[20px]' alt={company.title} />
-                  
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                { title: 'Upload & Scan', desc: 'Securely upload your resume. We parse it exactly how modern ATS software does.', icon: <FileText className="text-primary-foreground" size={28} /> },
+                { title: 'Instant Scoring', desc: 'Get a detailed score based on keywords, format, and industry-specific criteria.', icon: <CheckCircle className="text-primary-foreground" size={28} /> },
+                { title: 'Optimize', desc: 'Apply our smart AI suggestions to fix formatting errors and improve keyword matching.', icon: <Zap className="text-primary-foreground" size={28} /> },
+              ].map((feature, i) => (
+                <div key={i} className="bg-card rounded-2xl p-8 border border-border shadow-sm hover:shadow-md transition-shadow">
+                  <div className="mb-6 p-4 bg-primary/20 w-fit rounded-xl border border-primary/30 text-primary">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{feature.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
-
-        {/* How It Works Section */}
-        <div className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white tracking-tight">How ResumeAI Works</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto text-lg">
-              Create a resume that stands out to both algorithms and recruiters. We simulate real ATS behavior to give you the competitive edge.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              { title: 'Real-time Scoring', desc: 'Get an instant score (0-100) based on role-specific criteria.', icon: <CheckCircle className="text-white" size={32} /> },
-              { title: 'Format Validation', desc: 'Detect tables, columns, and graphics that confuse ATS parsers.', icon: <FileText className="text-white" size={32} /> },
-              { title: 'AI Suggestions', desc: 'Receive smart rewrite suggestions to improve impact and clarity.', icon: <Upload className="text-white" size={32} /> },
-            ].map((feature, i) => (
-              <div key={i} className="group relative bg-[#0A0A0A] rounded-2xl p-8 border border-slate-800 hover:border-slate-700 transition-all duration-300 flex flex-col min-h-[300px] justify-between overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-800 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <div className="relative z-10">
-                  <div className="mb-6 p-3 bg-slate-900/50 w-fit rounded-xl border border-slate-800 group-hover:border-slate-600 transition-colors">
-                    {feature.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
-                  <p className="text-slate-400 leading-relaxed">{feature.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
         
       </main>
 
-      {/* <footer className="border-t border-slate-800 py-12 ">
+      <footer className="py-12 border-t border-border bg-background">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <div className="flex justify-center gap-8 mb-8">
-            <Link href="#" className="text-yellow-300">Docs</Link>
-            <Link href="#" className="text-yellow-300">Company</Link>
-            <Link href="#" className="text-yellow-300">Careers</Link>
-            <Link href="#" className="text-yellow-300">Blog</Link>
-          </div>
-          <p className="text-slate-600">&copy; 2025 ResumeAI. All rights reserved.</p>
+          <p className="text-muted-foreground font-medium">&copy; {new Date().getFullYear()} ATSPROB. All rights reserved.</p>
         </div>
-      </footer> */}
-     
+      </footer>
     </div>
   );
 }
