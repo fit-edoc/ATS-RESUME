@@ -16,7 +16,7 @@ const Navbar = () => {
                     <div className="flex items-center justify-between h-16">
                         <div className="flex items-center">
                             <Link href="/" className="text-xl font-bold text-foreground tracking-tight flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-md bg-primary text-primary-foreground flex items-center justify-center font-bold">AP</div>
+                                <img src="/logo.png" alt="Logo" className="w-13 h-13  object-cover  rounded-xl" />
                                 ATS<span className="text-primary">PROB</span>
                             </Link>
                         </div>

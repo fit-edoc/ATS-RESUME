@@ -11,8 +11,12 @@ const spaceMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ATS Resume Analyzer",
+  title: "ATS PROB",
   description: "Optimize your resume for ATS algorithms and get hired faster.",
+  icons:{
+    icon:"/logo.png"
+  }
+
 };
 
 export default function RootLayout({
