@@ -8,7 +8,14 @@ const generateSuggestions = async (resumeText, role) => {
         
         const prompt = `You are an expert ATS (Applicant Tracking System) resume analyzer. Analyze the resume for the given role.
         
-Analyze this resume for the role of ${role}. Match patterns and suggest improvements. 
+Analyze this resume for the role of ${role}. Match patterns and suggest improvements.
+
+FORMATTING REQUIREMENTS:
+- Use markdown headings (#) and subheadings (##, ###) to organize your response.
+- Use bullet points for all lists and suggestions.
+- Do NOT output long paragraphs. Keep all points concise and actionable.
+- Do NOT use bold labels like "**Strengths:**". Instead, use proper subheadings (e.g., "### Strengths").
+- Ensure the overall structure is highly readable and broken down into logical sections.
 
 Resume Content:
 ${resumeText.substring(0, 3000)}`;
