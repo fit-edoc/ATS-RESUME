@@ -8,6 +8,7 @@ import { ResponsiveContainer, RadialBarChart, RadialBar, Legend, BarChart, Bar, 
 import { Check, X, AlertTriangle, ArrowLeft, Copy, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
 
 export default function ReportPage() {
     const { id } = useParams<{ id: string }>();
@@ -98,11 +99,22 @@ export default function ReportPage() {
                                 <span className="w-2.5 h-2.5 bg-primary rounded-full"></span> AI Improvement Suggestions
                             </h2>
                             <div className="prose prose-slate max-w-none">
-                                <div className="bg-muted p-5 rounded-xl border border-border/50 text-foreground text-sm leading-relaxed">
+                                <div className="bg-muted p-5 rounded-xl border border-border/50 text-foreground text-sm leading-relaxed overflow-hidden">
                                     {report.suggestions ? (
-                                        report.suggestions.split('\n').map((line: string, i: number) => (
-                                            <p key={i} className="mb-2 last:mb-0">{line}</p>
-                                        ))
+                                        <ReactMarkdown
+                                            components={{
+                                                h1: ({node, ...props}) => <h1 className="text-xl font-bold mt-6 mb-3 text-foreground first:mt-0" {...props} />,
+                                                h2: ({node, ...props}) => <h2 className="text-lg font-bold mt-5 mb-2 text-foreground first:mt-0" {...props} />,
+                                                h3: ({node, ...props}) => <h3 className="text-md font-bold mt-4 mb-2 text-foreground first:mt-0" {...props} />,
+                                                p: ({node, ...props}) => <p className="mb-3 last:mb-0 text-muted-foreground" {...props} />,
+                                                ul: ({node, ...props}) => <ul className="list-disc pl-6 mb-4 space-y-1 text-muted-foreground" {...props} />,
+                                                ol: ({node, ...props}) => <ol className="list-decimal pl-6 mb-4 space-y-1 text-muted-foreground" {...props} />,
+                                                li: ({node, ...props}) => <li className="mb-1" {...props} />,
+                                                strong: ({node, ...props}) => <strong className="font-semibold text-foreground" {...props} />,
+                                            }}
+                                        >
+                                            {report.suggestions}
+                                        </ReactMarkdown>
                                     ) : 'No specific AI suggestions available.'}
                                 </div>
                             </div>
